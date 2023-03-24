@@ -52,7 +52,7 @@ int Hash::contains(std::string str, int &collisions) {
 int Hash::worst_case() {
     int size = 0;
 
-    for(int i = 0; i < size_t(_table.size()); i++) {
+    for(int i = 0; i < int(_table.size()); i++) {
         int list_size = 0;
         for(std::forward_list<std::string>::iterator it = _table[i].begin(); it != _table[i].end(); it++){
             list_size++;
@@ -68,7 +68,7 @@ int Hash::worst_case() {
 int Hash::size() {
     int size = 0;
 
-    for(int i = 0; i < size_t(_table.size()); i++) {
+    for(int i = 0; i < int(_table.size()); i++) {
         for(std::forward_list<std::string>::iterator it = _table[i].begin(); it != _table[i].end(); it++){
             size++;
         }
