@@ -1,6 +1,5 @@
 #include <IndexPointsAluno.h>
 #include <memory>
-#include <iostream>
 
 
 IndexPointsAluno::IndexPointsAluno()

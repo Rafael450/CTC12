@@ -2,7 +2,6 @@
 #define CES12_ALUNOINDEXPOINTS_H
 
 #include <vector>
-#include <map>
 #include <memory>
 #include <IndexPointsAbstract.h>
 
@@ -21,8 +20,6 @@ public:
     
     
 private: 
-    // ALUNO DEVE IMPLEMENTAR ALGO COM O MESMO COMPORTAMENTO DE MULTIMAP
-    std::multimap<double, long> _map;
 
     struct Node{
         double key;
