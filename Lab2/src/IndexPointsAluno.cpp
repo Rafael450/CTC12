@@ -21,27 +21,27 @@ long IndexPointsAluno::size() {
 /// adds new element to the index. 
 void IndexPointsAluno::add(double key, long idx) 
 {    
-    Node* y = this->nil;
-    Node* x = this->root;
+    Node* aux_node1 = this->nil;
+    Node* aux_node2 = this->root;
     Node* inserting = new_node(key, idx);
 
-    while(x != this->nil) 
+    while(aux_node2 != this->nil) 
     {
-        y = x;
-        if(inserting->key < x->key)
-            x = x->left;
+        aux_node1 = aux_node2;
+        if(inserting->key < aux_node2->key)
+            aux_node2 = aux_node2->left;
         else
-            x = x->right;
+            aux_node2 = aux_node2->right;
     }
 
-    inserting->parent = y;
+    inserting->parent = aux_node1;
 
-    if(y == this->nil)
+    if(aux_node1 == this->nil)
         this->root = inserting;
-    else if(inserting->key < y->key)
-        y->left = inserting;
+    else if(inserting->key < aux_node1->key)
+        aux_node1->left = inserting;
     else
-        y->right = inserting;
+        aux_node1->right = inserting;
     
     inserting->left = this->nil;
     inserting->right = this->nil;
@@ -92,11 +92,11 @@ void IndexPointsAluno::add_fix(Node* inserting)
     {
         if(inserting->parent == inserting->parent->parent->left)
         {
-            Node* y = inserting->parent->parent->right;
-            if(y->colour == 1)
+            Node* aux_node = inserting->parent->parent->right;
+            if(aux_node->colour == 1)
             {
                 inserting->parent->colour = 0;
-                y->colour = 0;
+                aux_node->colour = 0;
                 inserting->parent->parent->colour = 1;
                 inserting = inserting->parent->parent;
             }
@@ -114,11 +114,11 @@ void IndexPointsAluno::add_fix(Node* inserting)
         }
         else
         {
-            Node* y = inserting->parent->parent->left;
-            if(y->colour == 1)
+            Node* aux_node = inserting->parent->parent->left;
+            if(aux_node->colour == 1)
             {
                 inserting->parent->colour = 0;
-                y->colour = 0;
+                aux_node->colour = 0;
                 inserting->parent->parent->colour = 1;
                 inserting = inserting->parent->parent;
             }
@@ -140,41 +140,41 @@ void IndexPointsAluno::add_fix(Node* inserting)
 
 void IndexPointsAluno::Node::leftRotate(IndexPointsAluno* tree ) 
 {
-    Node* y = this->right;
-    this->right = y->left;
+    Node* start_rchild = this->right;
+    this->right = start_rchild->left;
 
-    if(y->left != tree->nil)
-        y->left->parent = this;
-    y->parent = this->parent;
+    if(start_rchild->left != tree->nil)
+        start_rchild->left->parent = this;
+    start_rchild->parent = this->parent;
 
     if(this->parent == tree->nil)
-        tree->root = y;
+        tree->root = start_rchild;
     else if(this == this->parent->left) 
-        this->parent->left = y;
+        this->parent->left = start_rchild;
     else 
-        this->parent->right = y;
+        this->parent->right = start_rchild;
 
-    y->left = this;
-    this->parent = y;
+    start_rchild->left = this;
+    this->parent = start_rchild;
 }
 
 void IndexPointsAluno::Node::rightRotate(IndexPointsAluno* tree) 
 {
 
-    Node* y = this->left;
-    this->left = y->right;
+    Node* start_lchild = this->left;
+    this->left = start_lchild->right;
 
-    if(y->right != tree->nil)
-        y->right->parent = this;
-    y->parent = this->parent;
+    if(start_lchild->right != tree->nil)
+        start_lchild->right->parent = this;
+    start_lchild->parent = this->parent;
 
     if(this->parent == tree->nil)
-        tree->root = y;
+        tree->root = start_lchild;
     else if(this == this->parent->right)
-        this->parent->right = y;
+        this->parent->right = start_lchild;
     else
-        this->parent->left = y;
+        this->parent->left = start_lchild;
 
-    y->right = this;
-    this->parent = y;
+    start_lchild->right = this;
+    this->parent = start_lchild;
 }
