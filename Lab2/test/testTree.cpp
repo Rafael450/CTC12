@@ -19,7 +19,7 @@
 /// generates random long, value from 0 to N
 long randomUptoN(long N) {
     float ratio = (float)rand() / (float)RAND_MAX;
-    return round(ratio * N);
+    return round(ratio * N)+1;
 }
 
 
