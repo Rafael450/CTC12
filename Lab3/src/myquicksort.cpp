@@ -90,19 +90,19 @@ int partition(std::vector<int> &v, int left, int right, bool fixedPivot)
 void quickSortTwoRec(std::vector<int> &v, SortStats &stats, int min, int max, int depth)
 {
     stats.recursive_calls++;
+    if(depth > stats.depth_recursion_stack) stats.depth_recursion_stack = depth;
     if(min < max)
     {
         int p = partition(v, min, max, false);
         quickSortTwoRec(v, stats, min, p-1, depth + 1);
         quickSortTwoRec(v, stats, p+1, max, depth + 1);
     }
-    stats.recursive_calls++;
 }
 
 void quickSortOneRec(std::vector<int> &v, SortStats &stats, int min, int max, int depth)
 {
     stats.recursive_calls++;
-    stats.depth_recursion_stack = depth;
+    if(depth > stats.depth_recursion_stack) stats.depth_recursion_stack = depth;
     while(min < max)
     {
         int p = partition(v, min, max, false);
@@ -122,12 +122,12 @@ void quickSortOneRec(std::vector<int> &v, SortStats &stats, int min, int max, in
 void quickSortFixedPivot(std::vector<int> &v, SortStats &stats, int min, int max, int depth)
 {
     stats.recursive_calls++;
-    stats.depth_recursion_stack = depth;
+    if(depth > stats.depth_recursion_stack) stats.depth_recursion_stack = depth;
     if(min < max)
     {
         int p = partition(v, min, max, true);
-        quickSortTwoRec(v, stats, min, p-1, depth + 1);
-        quickSortTwoRec(v, stats, p+1, max, depth + 1);
+        quickSortFixedPivot(v, stats, min, p-1, depth + 1);
+        quickSortFixedPivot(v, stats, p+1, max, depth + 1);
     }
     stats.recursive_calls++;
 }

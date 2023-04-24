@@ -56,8 +56,8 @@ void merge(std::vector<int> &v, int i, int m, int f)
 
 void mergeSortRecursive(std::vector<int> &v, SortStats &stats, int i, int f, int depth)
 {
-    stats.depth_recursion_stack = depth;
     stats.recursive_calls++;
+    if(depth > stats.depth_recursion_stack) stats.depth_recursion_stack = depth;
     if(i < f)
     {
         int m = (i+f)/2;
@@ -65,8 +65,6 @@ void mergeSortRecursive(std::vector<int> &v, SortStats &stats, int i, int f, int
         mergeSortRecursive(v, stats, m+1, f, depth + 1);
         merge(v, i, m, f);
     }
-
-    
 }
 
 void mergeSortIterative(std::vector<int> &v, SortStats &stats, int i, int f)
